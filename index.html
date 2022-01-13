@@ -40,6 +40,49 @@
             <span class="form-message"></span>
           </div>
       
+      
+          <div class="form-group">
+            <label for="avatar" class="form-label">Avatar</label>
+            <input id="avatar" name="avatar"  type="file" class="form-control">
+            <span class="form-message"></span>
+          </div>
+      
+          <div class="form-group">
+            <label for="province" class="form-label">Tỉnh/TP</label>
+            <select id="province" name="province" class="form-control">
+              <option value="">-- Chọn tỉnh TP</option>
+              <option value="hanoi">Hà Nội</option>
+              <option value="hpg">Hải Phòng</option>
+            </select>
+            <span class="form-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="gender" class="form-label">Giới tính</label>
+            <div>
+              <input name="gender" value ="male" type="radio" class="form-control">
+              Nam
+            </div>
+            <div>
+              <input name="gender" value ="female" type="radio" class="form-control">
+              Nữ
+            </div>
+            <span class="form-message"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="checkbox" class="form-label">Checkbox</label>
+            <div>
+              <input name="checkbox" value ="male" type="checkbox" class="form-control">
+              cac
+            </div>
+            <div>
+              <input name="checkbox" value ="female" type="checkbox" class="form-control">
+              loz              
+            </div>
+            <span class="form-message"></span>
+          </div>
+
           <button class="form-submit">Đăng ký</button>
         </form>
       <script src="assets/js/validator.js"></script>
@@ -47,12 +90,27 @@
 
           Validator({
               form: '#form-1',
+              errorSelector: '.form-message',
+              formGroupSelector: '.form-group',
               rules: [
                   Validator.isRequired('#fullname'),
+                  Validator.minLength('#password', 6),
+                  Validator.isRequired('#email'),
                   Validator.isEmail('#email'),
-              ]
+                  Validator.isRequired('#password_confirmation'),
+                  Validator.isRequired('#avatar'),
+                  Validator.isRequired('input[name="gender"]'),
+                  Validator.isRequired('input[name="checkbox"]'),
+                  Validator.isRequired('#province'),
+                  Validator.isConfirmed('#password_confirmation', function () {
+                     return document.querySelector('#form-1 #password').value;
+                    }, 'Mật khẩu nhập lại không chính xác'),
+              ],
+              onSubmit: function (data) {
+                console.log(data);
+              }
           });
-          
+
       </script>
       </div>
 </body>
